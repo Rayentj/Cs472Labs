@@ -76,3 +76,20 @@ const testIsprime = async(n)=>{
 
 testIsprime(7)
 testIsprime(10)
+
+
+//****************fetching data********************** */
+(async () => {
+    try {
+      const response = await fetch('https://dummyjson.com/recipes');
+      const data = await response.json();
+  
+      // Extracting and printing recipe names
+      data.recipes.forEach(recipe => {
+        console.log(recipe.name);
+      });
+    } catch (error) {
+      console.error('Error fetching recipes:', error);
+    }
+  })();
+  
