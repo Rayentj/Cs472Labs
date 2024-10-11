@@ -1,4 +1,4 @@
-class Student {
+/*class Student {
     constructor(studentId) {
         this.studentId = studentId;
         this.answers = [];
@@ -57,7 +57,53 @@ class Quiz {
 
         return totalScore / this.students.length;
     }
+}*/
+
+
+//*********************class constructor */
+let Student=function(studentid,answers){
+    this.studentid=studentid
+    this.answers=[]
 }
+
+Student.prototype.addAnswer=function(question){
+    this.answers.push(question)
+}
+
+
+let Question = function(qid,answer){
+    this.qid=qid
+    this.answer=answer
+}
+
+Question.prototype.checkAnswer=function(answer){
+    return answer === this.answer
+}
+
+let Quiz = function(questions,students){
+    this.questions=new Map()
+    questions.forEach(q => this.questions.set (q.qid,q.answer));
+    this.students=students
+}
+
+
+Quiz.prototype.scoreStudentBysid = function(studentid){
+    const student = this.students.filter(s=>s.studentid=== studentid)[0]
+    return student.answers.reduce((sum,currentQuestion)=>{
+        if(currentQuestion.checkAnswer(this.questions.get(currentQuestion.id))){
+            sum=sum+1;
+        }
+        return sum
+    },0)
+
+}
+
+Quiz.prototype.getAverageScore = function() {
+    return this.students.reduce((accmulator, student, index, array) => {
+    return accmulator + this.scoreStudentBySid(student.studentId) / array.len
+    gth;
+    }, 0);
+    }
 
 // Create questions
 const questions = [
@@ -93,3 +139,6 @@ console.log("Student 2 Score:", quiz.scoreStudentBySid(102)); // Output: 2
 
 // Calculate and print average score
 console.log("Average Score:", quiz.getAverageScore()); // Output: 2
+
+
+
